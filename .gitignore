@@ -1,0 +1,7 @@
+# Ignore Unreal Engine temporary files
+Binaries/
+Intermediate/
+Saved/
+.vs/
+.vscode/
+*.log
