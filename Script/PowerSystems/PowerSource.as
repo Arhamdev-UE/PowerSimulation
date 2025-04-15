@@ -1,7 +1,7 @@
-UCLASS()
+UCLASS(Abstract)
 class APowerSource : AActor
 {
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintEvent)
     bool IsProvidingPower()
     {
         Print("Error : IsPowerAvailable called on base PowerSource!");
