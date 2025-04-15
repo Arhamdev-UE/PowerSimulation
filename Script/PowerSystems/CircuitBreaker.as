@@ -7,10 +7,10 @@ class ACircuitBreaker : AActor
     void ToggleBreaker()
     {
         bIsOn=!bIsOn;
-        Print("Breaker Toggle: " +bIsOn);
+        Print("Breaker Toggle: " +(bIsOn?"On":"Off"));
     }
     UFUNCTION(BlueprintCallable)
-    bool IsPowerAvailable()
+    bool IsProvidingPower()
     {
         return bIsOn;
     }
