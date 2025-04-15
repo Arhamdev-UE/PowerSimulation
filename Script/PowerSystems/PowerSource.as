@@ -1,5 +1,5 @@
-UCLASS(Abstract)
-class UPowerSource:UObject
+UCLASS()
+class UPowerSource:AActor
 {
     UFUNCTION(BlueprintCallable)
     bool IsPowerAvailable()
