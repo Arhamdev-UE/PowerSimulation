@@ -2,16 +2,16 @@ UCLASS(Abstract)
 class ASwitchableDevice : AActor
 {
     UPROPERTY()
-    bool bIsOn = false;  // Manual user toggle
+    bool bIsOn = false; 
     UPROPERTY()
-    bool bIsActive = false;  // Actual power state
+    bool bIsActive = false; 
     UPROPERTY(EditAnywhere)
     APowerSource PowerSource;
 
     UFUNCTION(BlueprintOverride)
     void BeginPlay()
     {
-        SetActorTickEnabled(true);  // Enable ticking
+        SetActorTickEnabled(true); 
     }
 
     UFUNCTION(BlueprintOverride)
@@ -19,7 +19,7 @@ class ASwitchableDevice : AActor
     {
         if (PowerSource != nullptr && PowerSource.IsProvidingPower())
         {
-            // Power is available, device should run if user toggled it on
+            
             if (bIsOn && !bIsActive)
             {
                 bIsActive = true;
@@ -28,7 +28,7 @@ class ASwitchableDevice : AActor
         }
         else
         {
-            // No power — shut down the device if it was active
+            
             if (bIsActive)
             {
                 bIsActive = false;
@@ -48,6 +48,6 @@ class ASwitchableDevice : AActor
     UFUNCTION(BlueprintEvent)
     void ApplyState(bool bNewState)
     {
-        // To be implemented in child (fan, bulb etc)
+        
     }
 }

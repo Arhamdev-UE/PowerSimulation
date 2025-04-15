@@ -12,6 +12,6 @@ class ALightBulb : ASwitchableDevice
     void ApplyState(bool bNewState)
     {
         Super::ApplyState(bNewState);
-        PointLight.SetVisibility(bNewState);  // Toggle light visibility
+        PointLight.SetVisibility(bNewState);
     }
 };
