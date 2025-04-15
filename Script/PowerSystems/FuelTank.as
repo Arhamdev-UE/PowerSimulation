@@ -1,6 +1,0 @@
-UCLASS()
-class AFuelTank : AActor
-{
-   
-    
-};

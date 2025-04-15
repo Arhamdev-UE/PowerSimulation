@@ -2,26 +2,34 @@ UCLASS()
 class AGenerator : APowerSource
 {
     UPROPERTY()
-    float Fuel = 100.0f;  // Initial fuel level
+    float Fuel = 100.0f;
+
     UPROPERTY()
-    bool bManualSwitch = false;  // Manual switch to toggle the generator's state
+    bool bManualSwitch = false;
+    UPROPERTY(DefaultComponent)
+    USceneComponent SceneRoot;
+    
+
     UPROPERTY(EditAnywhere)
-    TArray<APowerSource> InputPowerSource;  // Array to store input power sources (circuit breakers)
+    TArray<APowerSource> InputPowerSource;
+
+   
 
     UFUNCTION(BlueprintOverride)
     void BeginPlay()
     {
         SetActorTickEnabled(true);
         Print("tickEnabled");
+        
+        
     }
 
-    // Toggle the generator's manual switch
     UFUNCTION(BlueprintCallable)
     void ToggleSwitch()
     {
-        if (Fuel > 0 && AreInputsOn())  // Check if generator has fuel and inputs are on
+        if (Fuel > 0 && AreInputsOn())
         {
-            bManualSwitch = !bManualSwitch;  // Toggle the generator's state
+            bManualSwitch = !bManualSwitch;
             Print("Generator Switch " + (bManualSwitch ? "On" : "Off"));
         }
         else
@@ -30,45 +38,51 @@ class AGenerator : APowerSource
         }
     }
 
-    // Check if all input power sources are on
     bool AreInputsOn()
     {
         for (int i = 0; i < InputPowerSource.Num(); i++)
         {
             if (InputPowerSource[i] == nullptr || !InputPowerSource[i].IsProvidingPower())
-                return false;  // If any input power source is off or null, return false
+                return false;
         }
-        return true;  // All inputs are on
+        return true;
     }
 
-    // Tick function to handle fuel consumption over time
     UFUNCTION(BlueprintOverride)
     void Tick(float DeltaSeconds)
     {
-        if (IsProvidingPower())  // Check if generator is providing power
+        if (IsProvidingPower())
         {
             Print("Generator is Active");
 
             if (Fuel > 0)
             {
-                Fuel -= DeltaSeconds * 10.0f;  // Decrease fuel over time
+                Fuel -= DeltaSeconds * 10.0f;
                 if (Fuel < 0)
                     Fuel = 0;
-                Print("Fuel Left: " + Fuel);  // Print the current fuel level
+                Print("Fuel Left: " + Fuel);
             }
             else
             {
                 Fuel = 0;
-                bManualSwitch = false;  // Turn off the generator if fuel is exhausted
+                bManualSwitch = false;
                 Print("Generator Ran Out of Fuel!");
             }
+
         }
     }
 
-    // Check if the generator is providing power (has fuel and is switched on)
     UFUNCTION(BlueprintOverride)
     bool IsProvidingPower()
     {
-        return Fuel > 0 && bManualSwitch && AreInputsOn();  // Generator is on if it has fuel, switch is on, and inputs are on
+        return Fuel > 0 && bManualSwitch && AreInputsOn();
+    }
+
+    // ✅ NEW: Refill fuel function
+    UFUNCTION(BlueprintCallable)
+    void RefillFuel(float Amount = 100.0f)
+    {
+        Fuel = Amount;
+        Print("Fuel Refilled to: " + Fuel);
     }
 };
