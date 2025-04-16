@@ -78,7 +78,7 @@ class AGenerator : APowerSource
         return Fuel > 0 && bManualSwitch && AreInputsOn();
     }
 
-    // ✅ NEW: Refill fuel function
+   
     UFUNCTION(BlueprintCallable)
     void RefillFuel(float Amount = 100.0f)
     {

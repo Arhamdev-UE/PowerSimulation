@@ -33,7 +33,7 @@ class ASwitchableDevice : AActor
             {
                 bIsActive = false;
                 ApplyState(false);
-                Print("Device turned OFF due to power loss");
+                Print("Device turned OFF due to power loss/No Fuel");
             }
         }
     }
